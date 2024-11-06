@@ -47,18 +47,6 @@
     "babel-jest": "^29.7.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/"
-    ],
-    "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "/node_modules/(?!axios)/"
-    ]
   }
   
 }
