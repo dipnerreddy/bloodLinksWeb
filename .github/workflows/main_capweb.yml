@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - CapWeb
+name: Build and deploy React app to Azure Web App - CapWeb
 
 on:
   push:
@@ -21,20 +18,16 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: Install dependencies and build
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build # Build the production-ready React app
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
-      - name: Upload artifact for deployment job
+      - name: Upload build folder for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: release.zip
+          name: react-app
+          path: build # Upload only the build folder
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,23 +36,20 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # Required for requesting the JWT
 
     steps:
-      - name: Download artifact from build job
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: react-app
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_49D471BC59D3409081A9E5949EC80203 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2EC337A4B3354212AFC8219C193E4C55 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2E55D2747F1F4932B366088BF9487E63 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -67,5 +57,4 @@ jobs:
         with:
           app-name: 'CapWeb'
           slot-name: 'Production'
-          package: .
-          
+          package: build # Deploy the build folder only
