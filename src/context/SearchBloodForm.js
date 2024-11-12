@@ -6,12 +6,12 @@ const SearchBloodForm = () => {
     const [location, setLocation] = useState('');
     const [error, setError] = useState('');
     const [results, setResults] = useState([]);
-    const [bloodType, setBloodType] = useState('');
     const [requestError, setRequestError] = useState('');
     const [requestSuccess, setRequestSuccess] = useState('');
+    const [bloodTypes, setBloodTypes] = useState({});
 
     // Blood types dropdown options
-    const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+    const bloodTypeOptions = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +36,7 @@ const SearchBloodForm = () => {
         }
     };
 
-    const handleRequestBlood = async (bbName, bloodType) => {
+    const handleRequestBlood = async (bbName, bloodType, requestId) => {
         const userName = sessionStorage.getItem('userName');
         const phoneNumber = sessionStorage.getItem('phoneNumber');
 
@@ -56,6 +56,13 @@ const SearchBloodForm = () => {
             const response = await requestBlood(requestDetails); // Call the API function
             if (response.status === 200) {
                 setRequestSuccess('Blood request successful!');
+                setTimeout(() => {
+                    setRequestSuccess('');
+                }, 3000); // Hide success message after 3 seconds
+                setBloodTypes(prevState => ({
+                    ...prevState,
+                    [requestId]: bloodType // Update the selected blood type for the specific request
+                }));
             } else {
                 setRequestError('Failed to request blood. Please try again.');
             }
@@ -63,6 +70,14 @@ const SearchBloodForm = () => {
             console.error('Error during blood request:', error);
             setRequestError('Failed to request blood. Please try again later.');
         }
+    };
+
+    const handleBloodTypeChange = (e, requestId) => {
+        const selectedBloodType = e.target.value;
+        setBloodTypes(prevState => ({
+            ...prevState,
+            [requestId]: selectedBloodType // Store selected blood type for the specific request card
+        }));
     };
 
     return (
@@ -108,12 +123,12 @@ const SearchBloodForm = () => {
                                 <div className="mb-4">
                                     <label className="block text-lg font-medium text-gray-700">Select Blood Type</label>
                                     <select
-                                        value={bloodType}
-                                        onChange={(e) => setBloodType(e.target.value)}
+                                        value={bloodTypes[request.id] || ''}
+                                        onChange={(e) => handleBloodTypeChange(e, request.id)}
                                         className="w-full p-3 mt-2 border border-gray-300 rounded-lg"
                                     >
                                         <option value="">Select Blood Type</option>
-                                        {bloodTypes.map((type) => (
+                                        {bloodTypeOptions.map((type) => (
                                             <option key={type} value={type}>{type}</option>
                                         ))}
                                     </select>
@@ -122,7 +137,8 @@ const SearchBloodForm = () => {
                                 {/* Request Blood Button */}
                                 <button
                                     className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
-                                    onClick={() => handleRequestBlood(request.bbName, bloodType)}
+                                    onClick={() => handleRequestBlood(request.bbName, bloodTypes[request.id], request.id)}
+                                    disabled={!bloodTypes[request.id]} // Disable the button if no blood type is selected
                                 >
                                     Request Blood
                                 </button>
