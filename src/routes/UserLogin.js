@@ -35,6 +35,10 @@ const UserLogin = () => {
         navigate('/user-register'); // Redirect to registration page
     };
 
+    const handleForgotPassword = () => {
+        navigate('/forgot-password'); // Redirect to forgot password page
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md">
@@ -66,14 +70,20 @@ const UserLogin = () => {
                         </button>
                     </form>
                     {message && <p className="text-red-500 text-center mt-4">{message}</p>}
-                    <div className="text-center mt-4">
-                        <button className="text-indigo-600 hover:underline" onClick={handleAdminLogin}>
-                            Login as Administrator
-                        </button>
-                    </div>
+                    
                     <div className="text-center mt-4">
                         <button className="text-indigo-600 hover:underline" onClick={handleRegister}>
                             Register
+                        </button>
+                    </div>
+                    <div className="text-center mt-4">
+                        <button className="text-indigo-600 hover:underline" onClick={handleForgotPassword}>
+                            Forgot Password?
+                        </button>
+                    </div>
+                    <div className="text-center mt-4">
+                        <button className="text-indigo-600 hover:underline " onClick={handleAdminLogin}>
+                           Administrator?
                         </button>
                     </div>
                 </div>

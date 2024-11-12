@@ -7,6 +7,10 @@ export const register = (data) => {
     return axios.post(`${API_URL}/userController/registration`, data);  
 }
 
+export const forgotPassword = (data) => {
+    return axios.post(`${API_URL}/userController/forgot-password`, data);
+};
+
 export const userlogin = (user) => {
     return axios.post(`${API_URL}/bloodBank/login`, user);
 }

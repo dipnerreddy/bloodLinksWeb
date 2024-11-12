@@ -10,6 +10,7 @@ import Receipt from './context/Receipt'; // Import Receipt component
 import UserDashboard from './routes/UserDashboard';
 import UserLogin from './routes/UserLogin';
 import Register from './routes/Register';
+import ForgotPassword from './routes/ForgotPassword';
 
 const PaymentProtectedRoute = ({ element }) => {
     const { isPaymentSuccessful } = useAuth();
@@ -23,6 +24,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
                     <Route path="/user-dashboard" element={<PrivateRoute element={<UserDashboard />} />} />
                     <Route path="/receipt" element={<PaymentProtectedRoute element={<Receipt />} />} /> {/* Protect Receipt route */}
