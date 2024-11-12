@@ -27,11 +27,11 @@ const Receipt = () => {
                 <div className="border-b border-gray-400 my-4"></div>
                 <div className="grid grid-cols-2 mb-2">
                     <p className="text-lg font-bold text-gray-800">Total Amount:</p>
-                    <p className="text-lg font-bold text-gray-800 text-right">${paymentDetails.amount}</p>
+                    <p className="text-lg font-bold text-gray-800 text-right">₨ {paymentDetails.amount}/-</p>
                 </div>
                 <div className="flex justify-between mt-6">
                     <button 
-                        onClick={() => navigate('/dashboard')} // Navigate to dashboard
+                        onClick={() => navigate('/dashboard')} // Navigate to dashboar₨d
                         className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                         Back to Dashboard

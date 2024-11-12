@@ -1,8 +1,8 @@
 // src/context/api.js
 import axios from 'axios';
 
-// const API_URL = 'http://localhost:8080/api';
-const API_URL = 'https://bloodlinksbn-eqaganhye2c7afep.centralindia-01.azurewebsites.net/api';
+const API_URL = 'http://localhost:8080/api';
+// const API_URL = 'https://bloodlinksbn-eqaganhye2c7afep.centralindia-01.azurewebsites.net/api';
 // https://bloodlinksbn.azurewebsites.net/
 
 // working good 
