@@ -3,6 +3,13 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
 
+
+export const getRequestsByLocation = (address) => {
+    return axios.get(`${API_URL}/v1/location`, {
+        params: { address }, // Pass 'address' as query parameter
+    });
+};
+
 export const register = (data) => {
     return axios.post(`${API_URL}/userController/registration`, data);  
 }
