@@ -3,12 +3,19 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
 
+export const requestBlood = (requestDetails) => {
+    return axios.post(`${API_URL}/userController/request-blood`, requestDetails); // POST request to the server
+};
+
+
 
 export const getRequestsByLocation = (address) => {
     return axios.get(`${API_URL}/v1/location`, {
         params: { address }, // Pass 'address' as query parameter
     });
 };
+
+// Function to request blood
 
 export const register = (data) => {
     return axios.post(`${API_URL}/userController/registration`, data);  

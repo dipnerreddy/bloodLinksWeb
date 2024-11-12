@@ -15,14 +15,18 @@ const UserLogin = () => {
         console.log("Submitting login...");
 
         try {
-            const response = await login({ phoneNumber, password }); 
+            const response = await login({ phoneNumber, password });
             console.log("Login successful:", response.data);
-
-            // Set session variable and update authentication status in context
-            authenticateUser();
+    
+            // Store user data in sessionStorage after successful login
+            sessionStorage.setItem('phoneNumber', phoneNumber);
+            sessionStorage.setItem('userName', response.data.userName); // Assuming the API returns userName
+            sessionStorage.setItem('bbName', response.data.bbName); // Assuming bbName is returned from API
+    
+            authenticateUser(); // Update authentication context
             navigate('/user-dashboard'); // Redirect to user dashboard
         } catch (error) {
-            console.error("Error during login:", error);
+            console.error("Login failed:", error);
             setMessage(error.response?.data?.message || 'Login failed. Please check your credentials.');
         }
     };

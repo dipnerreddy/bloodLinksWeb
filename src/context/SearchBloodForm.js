@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getRequestsByLocation } from './api'; // Import the API function
-import axios from 'axios';
+import { requestBlood } from './api'; // Import the requestBlood API function
 
 const SearchBloodForm = () => {
     const [location, setLocation] = useState('');
@@ -17,7 +17,7 @@ const SearchBloodForm = () => {
         e.preventDefault();
         setError('');
         setResults([]);
-        
+
         if (!location) {
             setError('Please enter a location.');
             return;
@@ -36,36 +36,32 @@ const SearchBloodForm = () => {
         }
     };
 
-    const handleRequestBlood = async (bbName) => {
-        const userName = sessionStorage.getItem('userName'); // Assuming userName is stored in session
-        const phoneNumber = sessionStorage.getItem('phoneNumber'); // Assuming phoneNumber is stored in session
+    const handleRequestBlood = async (bbName, bloodType) => {
+        const userName = sessionStorage.getItem('userName');
+        const phoneNumber = sessionStorage.getItem('phoneNumber');
 
-        if (!userName || !phoneNumber) {
-            setRequestError('User is not logged in. Please log in to request blood.');
+        if (!userName || !phoneNumber || !bbName || !bloodType) {
+            setRequestError('Please log in and select all required fields.');
             return;
         }
 
-        if (!bloodType) {
-            setRequestError('Please select a blood type.');
-            return;
-        }
-
-        // Prepare data for the request
-        const userDTO = {
-            userName: userName,
-            phoneNumber: phoneNumber,
+        const requestDetails = {
+            userName,
+            phoneNumber,
             rBloodType: bloodType,
-            bbName: bbName,
+            bbName
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/request-blood', userDTO);
-            setRequestSuccess(response.data); // Display success message
-            setRequestError(''); // Clear any previous error
+            const response = await requestBlood(requestDetails); // Call the API function
+            if (response.status === 200) {
+                setRequestSuccess('Blood request successful!');
+            } else {
+                setRequestError('Failed to request blood. Please try again.');
+            }
         } catch (error) {
-            console.error('Error requesting blood:', error);
-            setRequestError('Failed to process blood request. Please try again.');
-            setRequestSuccess('');
+            console.error('Error during blood request:', error);
+            setRequestError('Failed to request blood. Please try again later.');
         }
     };
 
@@ -126,7 +122,7 @@ const SearchBloodForm = () => {
                                 {/* Request Blood Button */}
                                 <button
                                     className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
-                                    onClick={() => handleRequestBlood(request.bbName)}
+                                    onClick={() => handleRequestBlood(request.bbName, bloodType)}
                                 >
                                     Request Blood
                                 </button>
