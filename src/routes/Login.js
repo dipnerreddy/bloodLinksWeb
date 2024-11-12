@@ -1,7 +1,7 @@
-// src/routes/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; // Import the Auth context
+import { userlogin } from '../context/api'; // Import the API function
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,36 +12,20 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const loginApiUrl = 'http://localhost:8080/api/bloodBank/login'; // Hard-coded URL
-        // const loginApiUrl = 'https://bloodlinksbn-eqaganhye2c7afep.centralindia-01.azurewebsites.net/api/bloodBank/login'; // Hard-coded URL
-
         try {
-            const response = await fetch(loginApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }), // JSON body with email and password
-            });
+            const response = await userlogin({ email, password }); // Use userlogin from api.js
+            const { bbName } = response.data; // Assuming bbName is in the response
 
-            const data = await response.json(); // Get the response body as JSON
+            // Store the blood bank name in session storage
+            sessionStorage.setItem('bbName', bbName);
 
-            if (response.status === 200) {
-                // Assuming the response contains a bbName field
-                const { bbName } = data; // Extract the blood bank name from the response
-
-                // Store the blood bank name in session storage
-                sessionStorage.setItem('bbName', bbName);
-
-                // Call login function to update authentication state
-                login();
-                navigate('/dashboard'); // Redirect to the dashboard on success
-            } else {
-                alert(data.message); // Handle login failure using message from JSON
-            }
+            // Call login function to update authentication state
+            login();
+            navigate('/dashboard'); // Redirect to the dashboard on success
         } catch (error) {
             console.error('Error during login:', error);
-            alert('An error occurred during login: ' + error.message);
+            // Show error message from the server if available, otherwise show a generic error
+            alert(error.response?.data?.message || 'Login failed. Please try again.');
         }
     };
 

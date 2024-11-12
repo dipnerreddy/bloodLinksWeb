@@ -44,7 +44,7 @@ const Dashboard = () => {
     const handleLogout = () => {
         console.log("Logging out...");
         sessionStorage.clear();
-        window.location.href = '/login';
+        window.location.href = '/';
     };
 
     const handleRefresh = () => {
