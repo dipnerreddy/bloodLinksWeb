@@ -28,19 +28,12 @@ const UserDashboard = () => {
     };
 
 
-    // useEffect(() => {
-    //     fetchData(); // Call fetchData here
-    // }, [fetchData]); // Updated dependency array
-
     const handleLogout = () => {
         console.log("Logging out...");
         sessionStorage.clear();
         window.location.href = '/';
     };
 
-    // const handleRefresh = () => {
-    //     fetchData();
-    // };
 
     return (
         <div className="flex">
@@ -110,25 +103,6 @@ const UserDashboard = () => {
                         <SettingsForm onUpdate={handleSettingsUpdate} />
                     </div>
                 )}
-
-                {/* <div className="flex space-x-4 mt-10">
-                    <div className="bg-white p-6 rounded shadow w-1/2">
-                        <h2 className="text-2xl font-semibold mb-4">Data Overview</h2>
-                        <button
-                            onClick={handleRefresh}
-                            className="mb-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-                        >
-                            Refresh
-                        </button>
-
-                        <h3 className="text-xl font-semibold mb-4">Database Info</h3>
-                        {databaseInfo.length > 0 ? (
-                            <CustomPieChart data={databaseInfo} />
-                        ) : (
-                            <p>No data available. Fetch information from the database.</p>
-                        )}
-                    </div>
-                </div> */}
             </main>
         </div>
     );
