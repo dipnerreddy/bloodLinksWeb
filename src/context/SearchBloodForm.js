@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { getRequestsByLocation } from './api'; // Import the API function
-import { requestBlood } from './api'; // Import the requestBlood API function
+import { getRequestsByLocation, requestBlood } from './api'; // Import the API functions
 
 const SearchBloodForm = () => {
-    const [location, setLocation] = useState('');
+    const [address, setAddress] = useState('');
+    const [bloodType, setBloodType] = useState('');
     const [error, setError] = useState('');
     const [results, setResults] = useState([]);
     const [requestError, setRequestError] = useState('');
     const [requestSuccess, setRequestSuccess] = useState('');
-    const [bloodTypes, setBloodTypes] = useState({});
+    const [requestedUnits, setRequestedUnits] = useState({});
 
-    // Blood types dropdown options
     const bloodTypeOptions = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 
     const handleSubmit = async (e) => {
@@ -18,21 +17,21 @@ const SearchBloodForm = () => {
         setError('');
         setResults([]);
 
-        if (!location) {
-            setError('Please enter a location.');
+        if (!address || !bloodType) {
+            setError('Please enter an address and select a blood type.');
             return;
         }
 
         try {
-            const response = await getRequestsByLocation(location);
+            const response = await getRequestsByLocation(address, bloodType);
             if (response.data && response.data.length > 0) {
                 setResults(response.data);
             } else {
-                setError('No blood requests found for the specified location.');
+                setError('No blood banks found for the specified address and blood type.');
             }
         } catch (error) {
-            console.error('Error fetching blood requests:', error);
-            setError('Failed to fetch blood requests. Please try again later.');
+            console.error('Error fetching blood banks:', error);
+            setError('Failed to fetch blood banks. Please try again later.');
         }
     };
 
@@ -41,7 +40,7 @@ const SearchBloodForm = () => {
         const phoneNumber = sessionStorage.getItem('phoneNumber');
 
         if (!userName || !phoneNumber || !bbName || !bloodType) {
-            setRequestError('Please log in and select all required fields.');
+            setRequestError('Please log in and ensure all fields are filled.');
             return;
         }
 
@@ -53,16 +52,16 @@ const SearchBloodForm = () => {
         };
 
         try {
-            const response = await requestBlood(requestDetails); // Call the API function
+            const response = await requestBlood(requestDetails);
             if (response.status === 200) {
-                setRequestSuccess('Blood request successful!');
+                setRequestSuccess(`Successfully requested ${bloodType} blood!`);
+                setRequestedUnits((prev) => ({
+                    ...prev,
+                    [requestId]: bloodType
+                }));
                 setTimeout(() => {
                     setRequestSuccess('');
-                }, 3000); // Hide success message after 3 seconds
-                setBloodTypes(prevState => ({
-                    ...prevState,
-                    [requestId]: bloodType // Update the selected blood type for the specific request
-                }));
+                }, 3000);
             } else {
                 setRequestError('Failed to request blood. Please try again.');
             }
@@ -72,28 +71,33 @@ const SearchBloodForm = () => {
         }
     };
 
-    const handleBloodTypeChange = (e, requestId) => {
-        const selectedBloodType = e.target.value;
-        setBloodTypes(prevState => ({
-            ...prevState,
-            [requestId]: selectedBloodType // Store selected blood type for the specific request card
-        }));
-    };
-
     return (
         <div className="max-w-3xl mx-auto p-6">
-            <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Search Blood by Location</h2>
+            <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Search Blood by Address</h2>
             {error && <p className="text-red-600 text-center mb-4">{error}</p>}
             <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-lg shadow-lg">
                 <div className="mb-4">
-                    <label className="block text-lg font-medium text-gray-700">Location</label>
+                    <label className="block text-lg font-medium text-gray-700">Address</label>
                     <input
                         type="text"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                         className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter location"
+                        placeholder="Enter address"
                     />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-lg font-medium text-gray-700">Blood Type</label>
+                    <select
+                        value={bloodType}
+                        onChange={(e) => setBloodType(e.target.value)}
+                        className="w-full p-3 mt-2 border border-gray-300 rounded-lg"
+                    >
+                        <option value="">Select Blood Type</option>
+                        {bloodTypeOptions.map((type) => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
                 </div>
                 <button
                     type="submit"
@@ -119,26 +123,12 @@ const SearchBloodForm = () => {
                                 <p className="text-gray-700">
                                     <span className="font-medium">Address:</span> {request.address}
                                 </p>
-                                {/* Blood Type Dropdown */}
-                                <div className="mb-4">
-                                    <label className="block text-lg font-medium text-gray-700">Select Blood Type</label>
-                                    <select
-                                        value={bloodTypes[request.id] || ''}
-                                        onChange={(e) => handleBloodTypeChange(e, request.id)}
-                                        className="w-full p-3 mt-2 border border-gray-300 rounded-lg"
-                                    >
-                                        <option value="">Select Blood Type</option>
-                                        {bloodTypeOptions.map((type) => (
-                                            <option key={type} value={type}>{type}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                {/* Request Blood Button */}
+                                <p className="text-gray-700">
+                                    <span className="font-medium">{bloodType} Units Available:</span> {request.bloodUnits}
+                                </p>
                                 <button
-                                    className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
-                                    onClick={() => handleRequestBlood(request.bbName, bloodTypes[request.id], request.id)}
-                                    disabled={!bloodTypes[request.id]} // Disable the button if no blood type is selected
+                                    className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mt-4"
+                                    onClick={() => handleRequestBlood(request.bbName, bloodType, request.id)}
                                 >
                                     Request Blood
                                 </button>
