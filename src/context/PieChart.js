@@ -1,7 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF4560', '#26C6DA', '#1DE9B6'];
 
 const CustomPieChart = ({ data }) => {
     return (

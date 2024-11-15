@@ -35,8 +35,8 @@ const Home = () => {
             <li><a href="#why" className="hover:underline">Why Donate</a></li>
             <li><a href="#developers" className="hover:underline">Developers</a></li>
             <li>
-              <a href="/login" className="bg-red-700 hover:bg-red-800 text-white rounded px-4 py-2">
-                Login As Administrator
+              <a href="/user-login" className="bg-red-700 hover:bg-red-800 text-white rounded px-4 py-2">
+                Login
               </a>
             </li>
           </ul>

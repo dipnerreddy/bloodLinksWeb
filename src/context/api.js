@@ -1,11 +1,43 @@
 // src/context/api.js
 import axios from 'axios';
 
-// const API_URL = 'http://localhost:8080/api';
-const API_URL = 'https://bloodlinksbn-eqaganhye2c7afep.centralindia-01.azurewebsites.net/api';
-// https://bloodlinksbn.azurewebsites.net/
+const API_URL = 'http://localhost:8080/api';
 
-// working good 
+
+
+export const getRequestsByLocation = (address, bloodType) => {
+    return axios.get(`${API_URL}/v1/search`, {
+        params: { address, bloodType }, // Correctly combining both parameters
+    });
+};
+
+
+export const requestBlood = (requestDetails) => {
+    return axios.post(`${API_URL}/userController/request-blood`, requestDetails); // POST request to the server
+};
+
+
+
+
+
+// Function to request blood
+
+export const register = (data) => {
+    return axios.post(`${API_URL}/userController/registration`, data);  
+}
+
+export const forgotPassword = (data) => {
+    return axios.post(`${API_URL}/userController/forgot-password`, data);
+};
+
+export const userlogin = (user) => {
+    return axios.post(`${API_URL}/bloodBank/login`, user);
+}
+
+export const login = (user) => {
+    return axios.post(`${API_URL}/userController/login`, user);
+}
+
 
 
 export const addBloodUnit = (bloodUnit) => {
