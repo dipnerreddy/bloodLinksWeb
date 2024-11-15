@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { register } from '../context/api'; // Import the register API function
 
 const Register = () => {
-    const [username, setUsername] = useState('');
+    const [userName, setUsername] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
@@ -19,7 +19,7 @@ const Register = () => {
         }
 
         try {
-            const response = await register({ username, phoneNumber, password, rePassword });
+            const response = await register({ userName, phoneNumber, password, rePassword });
             console.log('Registration successful:', response.data);
             setMessage('Registration successful. Please login.');
             navigate('/'); // Redirect to login page
@@ -40,7 +40,7 @@ const Register = () => {
                             <input
                                 type="text"
                                 className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"
-                                value={username}
+                                value={userName}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
                             />

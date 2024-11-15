@@ -3,11 +3,10 @@ import SearchBloodForm from '../context/SearchBloodForm'; // Import SearchBloodF
 import DonateBloodForm from '../context/DonateBloodForm'; // Import DonateBloodForm component
 import RequestBloodForm from '../context/RequestBloodForm'; // Import RequestBloodForm component
 import SettingsForm from '../context/SettingsForm'; // Import SettingsForm component
-// import { getPieChartData } from '../context/api';
 
 const UserDashboard = () => {
-    const [databaseInfo, setDatabaseInfo] = useState([]);
     const [activeForm, setActiveForm] = useState('searchBlood'); // State to manage active form
+    const userName = sessionStorage.getItem('userName'); // Get userName from sessionStorage
     const bbName = sessionStorage.getItem('bbName');
 
     // Function to handle form submission (optional)
@@ -27,13 +26,11 @@ const UserDashboard = () => {
         console.log("Updating Settings:", settings);
     };
 
-
     const handleLogout = () => {
         console.log("Logging out...");
         sessionStorage.clear();
         window.location.href = '/';
     };
-
 
     return (
         <div className="flex">
@@ -77,7 +74,9 @@ const UserDashboard = () => {
                 </button>
             </aside>
             <main className="flex-1 p-6 bg-gray-200 ml-64">
-                <h1 className="text-3xl font-bold mb-6">User Dashboard</h1>
+                <h1 className="text-3xl font-bold mb-6">
+                    Welcome, {userName || 'User'}!
+                </h1>
 
                 {/* Conditional Rendering of Forms */}
                 {activeForm === 'searchBlood' && (
