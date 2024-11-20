@@ -1,26 +1,31 @@
 import React from "react";
+import Developer1Image from "../assets/images/dev1.svg";
+import Developer2Image from "../assets/images/dev2.svg";
+import Developer3Image from "../assets/images/dev3.svg";
+import Developer4Image from "../assets/images/dev4.svg";
+
 
 const Home = () => {
   // Array of developers
   const developers = [
     {
       name: "Avuthu Dipner Reddy",
-      image: "https://via.placeholder.com/150",
+      image: Developer4Image,
       quote: "Saving lives is a mission."
     },
     {
-      name: "Developer 2",
-      image: "https://via.placeholder.com/150",
+      name: "Venigandla Prachetan Chowdary",
+      image: Developer2Image, // Local image
       quote: "Innovating for a better tomorrow."
     },
     {
-      name: "Developer 3",
-      image: "https://via.placeholder.com/150",
+      name: "Pagidesetty Neha Srivalli",
+      image: Developer3Image, // Local image
       quote: "Empowering communities."
     },
     {
-      name: "Developer 4",
-      image: "https://via.placeholder.com/150",
+      name: "Lohitha Chalasani",
+      image: Developer1Image,
       quote: "Building a brighter future."
     },
   ];
@@ -34,16 +39,12 @@ const Home = () => {
             <li><a href="#about" className="hover:underline">About Us</a></li>
             <li><a href="#why" className="hover:underline">Why Donate</a></li>
             <li><a href="#developers" className="hover:underline">Developers</a></li>
-            <li>
-              <a href="/user-login" className="bg-red-700 hover:bg-red-800 text-white rounded px-4 py-2">
-                Login
-              </a>
-            </li>
+            <li><a href="/user-login"className = "hover:underline">Login</a></li>
           </ul>
         </div>
       </nav>
 
-      <header className="bg-red-700 text-white py-80 text-center pt-80">
+      <header className="bg-red-700 text-white py-96 text-center pt-80">
         <h2 className="text-2xl md:text-4xl lg:text-7xl font-bold tracking-tight">
           Welcome to Blood Links
           <div className="relative mx-auto inline-block w-max">
@@ -71,13 +72,18 @@ const Home = () => {
           <div className="md:w-1/2 p-6">
             <h2 className="text-2xl font-semibold text-center">About Us</h2>
             <p className="mt-4">
-              Blood Links is an innovative platform designed to help you locate nearby blood banks and contribute to saving lives. Our platform bridges the gap between donors and blood banks, ensuring timely and efficient support for those in critical need.
+            Blood Links is an innovative platform that connects individuals, blood donors, and blood banks to save lives. By bridging the gap between those in need and those who can help, we ensure timely access to life-saving resources during emergencies.
             </p>
             <p className="mt-2">
-              At Blood Links, we believe every drop of blood counts. By connecting the right people at the right time, we ensure that lives are saved when it matters most.
+            Our platform offers:
+                Locate Blood Banks: Quickly find nearby blood banks using a user-friendly search system.
+                Blood Donation: Register as a donor, schedule donations, and contribute to saving lives.
+                Urgent Requests: Submit blood requests and get matched with available donors or blood banks.
+                Stock Updates: Access real-time information on blood availability at partner blood banks.
+                We believe every drop of blood counts, and our mission is to create an efficient, responsive network that supports patients during critical moments. Whether you want to donate blood or help someone in need, Blood Links simplifies the process and ensures no request goes unanswered.
             </p>
             <p className="mt-2">
-              Join us today and be a part of this life-saving journey!
+            Join us today to make a difference. Together, we can build a community where timely support saves lives, offering hope to those who need it most. Let’s turn every act of generosity into a life-saving opportunity!
             </p>
           </div>
         </section>
@@ -111,26 +117,83 @@ const Home = () => {
               </div>
               <p className="mt-2">Certain medications may affect your eligibility. Please consult with your healthcare provider or the donation center.</p>
             </li>
+
+            <li className="p-4 border border-gray-300 rounded-lg shadow-sm">
+              <div className="flex items-center">
+                <svg className="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-1h2v1zm0-3H9V7h2v3z" />
+                </svg>
+                <strong className="text-lg">How long after I've had a vaccination can I donate?</strong>
+              </div>  
+              <p className="mt-2">Wait at least 48 hours after most vaccinations if symptom-free. For live vaccines, wait 4 weeks before donating blood.</p>
+              {/* <strong className="text-lg">What prescribed medications will prevent me from donating?</strong>
+              <p className="mt-2">Medications like isotretinoin, acitretin, warfarin, and certain chemotherapy drugs may disqualify you. Always inform the blood bank about prescriptions to confirm your eligibility before donating.</p> */}
+            </li>
+
+            <li className="p-4 border border-gray-300 rounded-lg shadow-sm">
+              <div className="flex items-center">
+                <svg className="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-1h2v1zm0-3H9V7h2v3z" />
+                </svg>
+                <strong className="text-lg">What prescribed medications will prevent me from donating?</strong>
+              </div>  
+              <p className="mt-2">Medications like isotretinoin, acitretin, warfarin, and certain chemotherapy drugs may disqualify you. Always inform the blood bank about prescriptions to confirm your eligibility before donating.</p>
+            </li>
+            <li className="p-4 border border-gray-300 rounded-lg shadow-sm">
+  <div className="flex items-center">
+    <svg className="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-1h2v1zm0-3H9V7h2v3z" />
+    </svg>
+    <strong className="text-lg">Can I donate if I’m pregnant?</strong>
+  </div>
+  <p className="mt-2">If you’re pregnant, you’ll need to wait until six months after giving birth to donate blood.</p>
+</li>
+
+<li className="p-4 border border-gray-300 rounded-lg shadow-sm">
+  <div className="flex items-center">
+    <svg className="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-1h2v1zm0-3H9V7h2v3z" />
+    </svg>
+    <strong className="text-lg">Can I donate blood if I’ve traveled overseas recently?</strong>
+  </div>
+  <p className="mt-2">It depends on your travel destination. You may need to wait for a specific period if you visited areas with certain diseases like malaria.</p>
+</li>
+
+<li className="p-4 border border-gray-300 rounded-lg shadow-sm">
+  <div className="flex items-center">
+    <svg className="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-1h2v1zm0-3H9V7h2v3z" />
+    </svg>
+    <strong className="text-lg">Can I donate if I have a cold or flu?</strong>
+  </div>
+  <p className="mt-2">You need to be symptom-free for at least 7 days after recovering from a cold, flu, or similar illness before donating blood.</p>
+</li>
+
+
             {/* Other FAQ items can be added here */}
           </ul>
         </section>
 
         {/* Developers Section */}
-        <section className="bg-white p-6 mx-4 my-4 rounded-lg shadow mt-2" id="developers">
-          <h2 className="text-2xl font-semibold text-center">Meet the People Behind The Idea</h2>
-          <p className="text-center mt-4">We are the team behind Blood Links, committed to saving lives.</p>
+        <section className="bg-white p-4 mx-2 my-2 rounded-lg shadow mt-2" id="developers">
+          <h2 className="text-xl font-semibold text-center">Meet the People Behind The Idea</h2>
+          <p className="text-center mt-2 text-sm">We are the team behind Blood Links, committed to saving lives.</p>
 
-          <div className="flex flex-wrap justify-center mt-6">
-            {/* Developer Cards */}
+          <div className="flex flex-wrap justify-center mt-4">
             {developers.map((dev, index) => (
-              <div key={index} className="w-full sm:w-1/2 lg:w-1/4 p-4 text-center">
-                <img src={dev.image} alt={dev.name} className="rounded-full w-32 h-32 mx-auto" />
-                <h3 className="text-lg font-semibold mt-4">{dev.name}</h3>
-                <p className="mt-2 text-sm italic">"{dev.quote}"</p>
+              <div key={index} className="w-full sm:w-1/3 lg:w-1/5 p-2 text-center">
+                <img 
+                  src={dev.image} 
+                  alt={dev.name} 
+                  className="rounded-full w-20 h-20 mx-auto" 
+                />
+                <h3 className="text-md font-semibold mt-2">{dev.name}</h3>
+                <p className="mt-1 text-xs italic">"{dev.quote}"</p>
               </div>
             ))}
           </div>
         </section>
+
       </main>
 
       <footer className="bg-gray-800 text-white text-center py-4">

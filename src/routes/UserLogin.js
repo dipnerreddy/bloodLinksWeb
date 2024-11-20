@@ -53,7 +53,7 @@ const UserLogin = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number:</label>
                             <input
                                 type="text"
-                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 required
@@ -63,13 +63,13 @@ const UserLogin = () => {
                             <label className="block text-sm font-medium text-gray-700 mb-1">Password:</label>
                             <input
                                 type="password"
-                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-600 focus:border-red-600"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                         </div>
-                        <button type="submit" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <button type="submit" className="w-full bg-red-700 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
                             Login
                         </button>
                     </form>
