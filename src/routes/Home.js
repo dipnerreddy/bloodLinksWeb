@@ -4,29 +4,19 @@ import Developer2Image from "../assets/images/dev2.svg";
 import Developer3Image from "../assets/images/dev3.svg";
 import Developer4Image from "../assets/images/dev4.svg";
 
-
 const Home = () => {
-  // Array of developers
   const developers = [
     {
-      name: "Avuthu Dipner Reddy",
-      image: Developer4Image,
-      quote: "Saving lives is a mission."
+      name: "Avuthu Dipner Reddy", image: Developer4Image, quote: "Saving lives is a mission."
     },
     {
-      name: "Venigandla Prachetan Chowdary",
-      image: Developer2Image, // Local image
-      quote: "Innovating for a better tomorrow."
+      name: "Venigandla Prachetan Chowdary",image: Developer2Image, quote: "Innovating for a better tomorrow."
     },
     {
-      name: "Pagidesetty Neha Srivalli",
-      image: Developer3Image, // Local image
-      quote: "Empowering communities."
+      name: "Pagidesetty Neha Srivalli",image: Developer3Image, quote: "Empowering communities."
     },
     {
-      name: "Lohitha Chalasani",
-      image: Developer1Image,
-      quote: "Building a brighter future."
+      name: "Lohitha Chalasani",image: Developer1Image,quote: "Building a brighter future."
     },
   ];
 
@@ -43,7 +33,6 @@ const Home = () => {
           </ul>
         </div>
       </nav>
-
       <header className="bg-red-700 text-white py-96 text-center pt-80">
         <h2 className="text-2xl md:text-4xl lg:text-7xl font-bold tracking-tight">
           Welcome to Blood Links
@@ -58,7 +47,6 @@ const Home = () => {
         </h2>
         <p className="text-lg mt-4">Your trusted platform for finding blood banks</p>
       </header>
-
       <main className="pt-24">
         {/* About Us Section */}
         <section className="bg-white p-6 mx-4 my-4 rounded-lg shadow flex flex-col md:flex-row" id="about">
@@ -87,7 +75,6 @@ const Home = () => {
             </p>
           </div>
         </section>
-
         {/* Why Donate Section */}
         <section className="bg-white p-6 mx-4 my-4 rounded-lg shadow mt-2" id="why">
           <h2 className="text-2xl font-semibold text-center text-red-600">Why Donate Blood?</h2>
@@ -103,7 +90,6 @@ const Home = () => {
             </a>
           </div>
         </section>
-
         {/* FAQ Section */}
         <section className="bg-white p-8 mx-4 my-4 rounded-lg shadow-lg mt-2" id="faq">
           <h2 className="text-3xl font-semibold text-center text-red-600 mb-6">Your Most Asked Questions</h2>
@@ -173,7 +159,6 @@ const Home = () => {
             {/* Other FAQ items can be added here */}
           </ul>
         </section>
-
         {/* Developers Section */}
         <section className="bg-white p-4 mx-2 my-2 rounded-lg shadow mt-2" id="developers">
           <h2 className="text-xl font-semibold text-center">Meet the People Behind The Idea</h2>
@@ -193,14 +178,11 @@ const Home = () => {
             ))}
           </div>
         </section>
-
       </main>
-
       <footer className="bg-gray-800 text-white text-center py-4">
         <p>&copy; 2024 Blood Links. All rights reserved.</p>
       </footer>
     </div>
   );
 };
-
 export default Home;

@@ -100,7 +100,7 @@ const MakePaymentForm = ({ onPay }) => {
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow">
                 <h2 className="text-2xl font-semibold mb-4">Make Payment</h2>
                 <div className="mb-4">
-                    <label className="block mb-2">Patient Name</label>
+                    <label className="block mb-2">Customer Name</label>
                     <input
                         type="text"
                         value={paymentDetails.patientName}
@@ -110,7 +110,7 @@ const MakePaymentForm = ({ onPay }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2">Patient Number</label>
+                    <label className="block mb-2">Mobile Number</label>
                     <input
                         type="tel"
                         value={paymentDetails.patientNumber}
