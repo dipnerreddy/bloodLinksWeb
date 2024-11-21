@@ -7,6 +7,7 @@ const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
+    const [bloodType, setBloodType] = useState(''); // New state for blood type
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
@@ -18,8 +19,13 @@ const Register = () => {
             return;
         }
 
+        if (!bloodType) {
+            setMessage('Please select a blood type.');
+            return;
+        }
+
         try {
-            const response = await register({ userName, phoneNumber, password, rePassword });
+            const response = await register({ userName, phoneNumber, password, rePassword, bloodType });
             console.log('Registration successful:', response.data);
             setMessage('Registration successful. Please login.');
             navigate('/'); // Redirect to login page
@@ -74,6 +80,25 @@ const Register = () => {
                                 onChange={(e) => setRePassword(e.target.value)}
                                 required
                             />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Blood Type:</label>
+                            <select
+                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"
+                                value={bloodType}
+                                onChange={(e) => setBloodType(e.target.value)}
+                                required
+                            >
+                                <option value="" disabled>Select your blood type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
                         </div>
                         <button type="submit" className="w-full bg-red-700 text-white py-2 px-4 rounded-md hover:bg-red-600">
                             Register

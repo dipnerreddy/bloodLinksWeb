@@ -3,6 +3,25 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
 
+export const fetchLastDonationDate = async (phoneNumber) => {
+    try {
+        const response = await axios.get(`${API_URL}/userController/lastDonated/${phoneNumber}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching last donation date:', error);
+        throw error;
+    }
+};
+
+export const updateLastDonationDate = async ({ phoneNumber, date }) => {
+    try {
+        const response = await axios.post(`${API_URL}/userController/lastDonated`, { phoneNumber, date });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating last donation date:', error);
+        throw error;
+    }
+};
 
 
 export const getRequestsByLocation = (address, bloodType) => {
