@@ -19,7 +19,7 @@ const UserDashboard = () => {
     };
 
     const handleRequestBlood = async (requestDetails) => {
-        console.log("Requesting Blood:", requestDetails);
+        console.log("Live Donars:", requestDetails);
     };
 
     const handleSettingsUpdate = async (settings) => {

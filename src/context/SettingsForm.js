@@ -4,19 +4,9 @@ import { fetchLastDonationDate, updateLastDonationDate } from './api';
 const SettingsForm = () => {
     const [date, setDate] = useState('');
     const [message, setMessage] = useState('');
-    const [sessionDetails, setSessionDetails] = useState({});
     const phoneNumber = sessionStorage.getItem('phoneNumber'); // Get phoneNumber from sessionStorage
 
     useEffect(() => {
-        // Load session storage details
-        const loadSessionDetails = () => {
-            const details = {};
-            for (const key of Object.keys(sessionStorage)) {
-                details[key] = sessionStorage.getItem(key);
-            }
-            setSessionDetails(details);
-        };
-
         // Fetch last donation date if phone number exists
         const loadDate = async () => {
             try {
@@ -32,8 +22,6 @@ const SettingsForm = () => {
                 setMessage('Failed to fetch donation date. Please try again.');
             }
         };
-
-        loadSessionDetails();
 
         if (phoneNumber) {
             loadDate();
@@ -84,26 +72,6 @@ const SettingsForm = () => {
             )}
 
             {message && <p className="mt-4 text-green-600">{message}</p>}
-
-            <div className="mt-6">
-                <h3 className="text-xl font-semibold mb-2">Session Details</h3>
-                <table className="w-full border">
-                    <thead>
-                        <tr>
-                            <th className="border px-4 py-2">Key</th>
-                            <th className="border px-4 py-2">Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.entries(sessionDetails).map(([key, value]) => (
-                            <tr key={key}>
-                                <td className="border px-4 py-2 font-medium">{key}</td>
-                                <td className="border px-4 py-2">{value}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
         </div>
     );
 };

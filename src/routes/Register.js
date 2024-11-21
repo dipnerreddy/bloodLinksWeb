@@ -8,24 +8,33 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [bloodType, setBloodType] = useState(''); // New state for blood type
+    const [address, setAddress] = useState(''); // New state for address
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Validation for password and rePassword
         if (password !== rePassword) {
             setMessage('Passwords do not match.');
             return;
         }
 
+        // Validation for blood type
         if (!bloodType) {
             setMessage('Please select a blood type.');
             return;
         }
 
+        // Validation for address
+        if (!address) {
+            setMessage('Please enter your address.');
+            return;
+        }
+
         try {
-            const response = await register({ userName, phoneNumber, password, rePassword, bloodType });
+            const response = await register({ userName, phoneNumber, password, rePassword, bloodType, address });
             console.log('Registration successful:', response.data);
             setMessage('Registration successful. Please login.');
             navigate('/'); // Redirect to login page
@@ -99,6 +108,16 @@ const Register = () => {
                                 <option value="AB+">AB+</option>
                                 <option value="AB-">AB-</option>
                             </select>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Address:</label>
+                            <input
+                                type="text"
+                                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                required
+                            />
                         </div>
                         <button type="submit" className="w-full bg-red-700 text-white py-2 px-4 rounded-md hover:bg-red-600">
                             Register

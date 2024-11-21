@@ -3,6 +3,20 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
 
+
+export const searchUser = async (address, bloodType) => {
+    try {
+        const response = await axios.post(`${API_URL}/v1/searchDonar`, {
+            address,
+            bloodType
+        });
+        return response.data;  // Return the response data if successful
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;  // Rethrow the error to be handled in the component
+    }
+};
+
 export const fetchLastDonationDate = async (phoneNumber) => {
     try {
         const response = await axios.get(`${API_URL}/userController/lastDonated/${phoneNumber}`);
